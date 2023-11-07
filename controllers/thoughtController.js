@@ -29,7 +29,7 @@ module.exports = {
       return res.status(500).json(err);
     }
   },
-  // Update existing user
+  // Update existing thought
   async updateThought(req,res) {
     try {
       
@@ -38,7 +38,7 @@ module.exports = {
       return res.status(500).json(err);
     }
   },
-  // Delete user
+  // Delete thought
   async deleteThought(req,res) {
     try {
       
@@ -47,7 +47,7 @@ module.exports = {
       return res.status(500).json(err);
     }
   },
-  // Add to user friends array
+  // Add to reaction array
   async addReaction(req,res) {
     try {
       
@@ -56,7 +56,7 @@ module.exports = {
       return res.status(500).json(err);
     }
   },
-  // remove from friends array
+  // remove from reaction array
   async deleteReaction(req,res) {
     try {
       
