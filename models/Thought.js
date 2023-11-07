@@ -29,7 +29,7 @@ const thoughtSchema = new Schema(
   }
 );
 
-// Create a virtual property `commentCount` that gets the amount of comments per post
+// Create a virtual property `reactionCount` that gets the amount of reactions per post
 thoughtSchema.virtual('reactionCount').get(function () {
   if (this.reactions) {
     return this.reactions.length;

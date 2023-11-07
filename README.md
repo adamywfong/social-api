@@ -4,6 +4,8 @@
 
 This project was designed as a social media back end where users are able to publish text based thoughts, react to existing thoughts, and curate friend lists of other users.  It was a made as a way to practice using the MongoDB database structure and creating API requests via Mongoose.  This application uses the Express and Mongoose packages.  
 
+[![Video Demonstration of Application](./examples/social-api.gif)](https://drive.google.com/file/d/1G3KFu4Cx88y31nH8sw1oerslHr4laAii/view)
+
 ## Installation and Usage
 
 Install with `npm install` while in the application folder. Seed user data using `npm run seed`.  To start the application, use `npm run start`. 
