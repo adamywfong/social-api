@@ -1,0 +1,1 @@
+adjective list from [https://github.com/rgbkrk/adjectives](https://github.com/rgbkrk/adjectives)
