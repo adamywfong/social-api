@@ -1,5 +1,5 @@
 const { ObjectId } = require('mongoose').Types;
-const { Thought } = require('../models');
+const { Thought, User } = require('../models');
 
 module.exports = {
   // Get all thoughts
@@ -17,13 +17,13 @@ module.exports = {
   async getSingleThought(req,res) {
     try {
       const thought = await Thought.findOne({ _id: req.params.thoughtId })
-        .select('__v');
+        .select('-__v')
 
       if (!thought) {
         return res.status(404).json({ message: 'No thought with that ID' })
       }
 
-      res.json(thought);
+      res.json(thought)
     } catch (err) {
       console.log(err);
       return res.status(500).json(err);
@@ -33,7 +33,18 @@ module.exports = {
   async createThought(req,res) {
     try {
       const thought = await Thought.create(req.body);
+      const user = await User.findOneAndUpdate(
+        { _id: req.body.userId},
+        { $push: {thoughts: thought._id}},
+        { new: true}
+      );
+      if (!user) {
+        return res
+          .status(404)
+          .json({ message: 'thought created, but no user with this ID' });
+      }
       res.json(thought);
+
     } catch (err) {
       console.log(err);
       return res.status(500).json(err);
@@ -43,7 +54,7 @@ module.exports = {
   async updateThought(req,res) {
     try {
       const thought = await Thought.findOneAndUpdate(
-        { _id: req.params.studentId },
+        { _id: req.params.thoughtId },
         { $set:  req.body },
         { runValidators: true, new: true }
       );
@@ -65,7 +76,10 @@ module.exports = {
       if (!thought) {
         return res.status(404).json({ message: 'No thought with that ID' })
       }
-
+      await User.findOneAndUpdate(
+        { username: thought.username},
+        { $pull: {thoughts: req.params.thoughtId}},
+      );
       res.json({ message: 'Thought successfully deleted' });
     } catch (err) {
       console.log(err);
